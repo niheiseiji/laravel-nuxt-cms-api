@@ -20,3 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// 追記
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
+{
+    Route::resource('posts', 'Admin\PostsController');
+});
+
+Route::resource('posts', 'PostsController', ['only' => [
+    'index', 'show'
+]]);
